@@ -15,6 +15,7 @@ import io
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 from sklearn.model_selection  import train_test_split
+import certifi
 
 warnings.filterwarnings(action='ignore', message='All-NaN slice encountered')
 
@@ -36,7 +37,9 @@ description=''' This data contains 7 attributes about the top YouTube channels a
 
 st.write(description)
 
-topsubscribed_df =pd.read_csv('/Users/nicoleolivetto/Downloads/topSubscribed.csv')
+topsubscribed_df =pd.read_csv('https://raw.githubusercontent.com/nicoleolivetto/Streamlit_presentation/main/Top_subscribed.csv', header=0,index_col=0)
+
+
 
 st.write(topsubscribed_df)
 
