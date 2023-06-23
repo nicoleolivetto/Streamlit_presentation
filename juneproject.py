@@ -157,25 +157,16 @@ st.pyplot(fig6)
 
 st.subheader('How different attributes impact Loan_Status')
 
-def impact(column):
-   
-    df = loan_df.pivot_table(index=column, columns='Loan_Status', aggfunc='size')
-    sns.set_style('whitegrid')
-    st.write(column)
-    ax=df.plot(kind='bar', stacked=False, color=['pink', 'purple'])
-    for container in ax.containers:
-        ax.bar_label(container)
-    
+#al posto di Gender metto l'attributo che mi interessa
 
 fig3=plt.figure(figsize=(10,5))
 
-df = loan_df.pivot_table(index=options, columns='Loan_Status', aggfunc='size')
+df = loan_df.pivot_table(index=loan_df.Gender, columns='Loan_Status', aggfunc='size')
 sns.set_style('whitegrid')
-st.write(df)
 ax=df.plot(kind='bar', stacked=False, color=['pink', 'purple'])
 for container in ax.containers:
     ax.bar_label(container)
-
+    
 st.pyplot(fig3)
 
 st.subheader('Observations:')
@@ -183,9 +174,9 @@ st.write('Gender, Education, Dependents and Self_Employed dont have significant 
 
 st.subheader('Approved and rejected loan amounts across property areas')
 
-figpa=plt.figure(figsize=(10,5))
+fig16=plt.figure(figsize=(10,5))
 sns.boxplot( x='Property_Area', y='LoanAmount', hue='Loan_Status', data=loan_df)
-st.pyplot(figpa)
+st.pyplot(fig16)
 
 fig10, axes = plt.subplots(1,2, figsize=(10, 5))
 st.write('Loan_Amount and Total_Income depending on the Property area')
@@ -197,16 +188,16 @@ st.pyplot(fig10)
 st.subheader('Observations:')
 st.write('Total_Income is similar in all property areas. The highest number of loans were applied in Semi-urban areas, but the property area doesnt have much impact on Loan_approval')
 
-st.subheader('Correlation matrix')
+st.subheader('Total income vs loan amount:')
+fig17=plt.figure(figsize=(10,5))
+sns.scatterplot(x='LoanAmount', y='Total_Income', hue='Property_Area', data=loan_df)
+st.pyplot(fig17)
 
-description3='''A correlation matrix is a table showing correlation coefficients among your variables. 
-Each cell in the table shows the correlation between two variables.
-The correlation coefficient is a standardized metric that ranges from -1 and +1. Positive values indicate a positive correlation,
-negative values indicate a negative correlation. 0 indicates no correlation.'''
-
-st.write(description3)
-
-
+st.subheader('How loan_amount impacts loan_term:')
+fig18=plt.figure(figsize=(10,5))
+sns.scatterplot(x='Loan_Amount_Term', y='LoanAmount', hue='Loan_Status', data=loan_df)
+plt.title('Loan Amount vs. Loan_Amount_Term')
+st.pyplot(fig18)
 
 loan_df['Loan_Status'] = loan_df['Loan_Status'].map({'Y': 1, 'N': 0})
 #loan_df['Loan_Status']
@@ -238,6 +229,15 @@ if len(choices) > 0 and st.button('RUN MODEL'):
         st.write(f'Accuracy = {accuracy:.2f}')
 
 
+
+st.subheader('Correlation matrix')
+
+description3='''A correlation matrix is a table showing correlation coefficients among your variables. 
+Each cell in the table shows the correlation between two variables.
+The correlation coefficient is a standardized metric that ranges from -1 and +1. Positive values indicate a positive correlation,
+negative values indicate a negative correlation. 0 indicates no correlation.'''
+
+st.write(description3)
 
 fig11=plt.figure(figsize=(5,4))
 sns.heatmap(loan_df.corr(), annot=True, cmap='coolwarm')
