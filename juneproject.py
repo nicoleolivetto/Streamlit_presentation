@@ -18,6 +18,7 @@ from sklearn.model_selection  import train_test_split
 import certifi
 
 warnings.filterwarnings(action='ignore', message='All-NaN slice encountered')
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def get_downloadable_data(df):
     return df.to_csv().encode('utf-8')
