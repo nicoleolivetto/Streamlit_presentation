@@ -206,9 +206,6 @@ negative values indicate a negative correlation. 0 indicates no correlation.'''
 st.write(description3)
 
 
-fig11=plt.figure(figsize=(5,4))
-sns.heatmap(loan_df.corr(), annot=True, cmap='coolwarm')
-st.pyplot(fig11)
 
 loan_df['Loan_Status'] = loan_df['Loan_Status'].map({'Y': 1, 'N': 0})
 #loan_df['Loan_Status']
@@ -241,6 +238,9 @@ if len(choices) > 0 and st.button('RUN MODEL'):
 
 
 
+fig11=plt.figure(figsize=(5,4))
+sns.heatmap(loan_df.corr(), annot=True, cmap='coolwarm')
+st.pyplot(fig11)
 
 
 
